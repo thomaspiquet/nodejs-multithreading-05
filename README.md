@@ -32,3 +32,31 @@ To run in Production
 ```
 npm run start
 ```
+
+## Explanations
+
+
+It is possible to restrain your worker from using too much resources.
+
+For example, you can limit memory allocation by using maxOldGenerationSizeMb.
+
+
+### Main Thread Side
+
+```ts
+const myWorker: Worker = new Worker(
+  process.env.NODE_ENV === 'production' ? './myWorker.js' : './src/proxy.js',
+  {
+    resourceLimits: {
+      maxOldGenerationSizeMb: 256,
+    }
+  }
+);
+```
+
+If your thread exceed 256 MB, it will be automatically terminated.
+
+## Next Chapter
+
+Multithreading 06 - Kill Thread
+https://github.com/thomaspiquet/nodejs-multithreading-06
